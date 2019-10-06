@@ -1,51 +1,32 @@
 const assert = require('assert');
 
+/*
+ Using promises instead of callbacks
+*/
+
 exports.insertDocument = (db, collection, doc, callback) => {
   const coll = db.collection(collection);
   //.insert is deprecated use insertOne, insertMany or bulkWrite
-  coll.insertOne(doc, (err, result) => {
-      assert.equal(err, null);
-
-      /*
-      * result contains a property result which is a javascript object that contains a property
-      * n that tells how many documents were inserted
-      */
-      console.log('Inserted ' + result.result.n + " documents into the collection " + collection);
-
-      callback(result);
-  });
+  //mongoClient provides promises support, call to insertOne and other functions returns a promise
+  return coll.insertOne(doc);
 };
 
 exports.findDocuments = (db, collection, callback) => {
   const coll = db.collection(collection);
   //{} empty object, finds all the documents
-  coll.find({}).toArray((err, docs) => {
-    assert.equal(err, null);
-
-    callback(docs);
-  });
+  return coll.find({}).toArray();
 };
 
 exports.updateDocument = (db, collection, doc, update, callback) => {
   const coll = db.collection(collection);
 
-  coll.updateOne(doc, {$set: update}, null, (err, result) => {
-    assert.equal(err, null);
-
-    console.log("Updated the document with: ", update);
-
-    callback(result);
-  });
+  return coll.updateOne(doc, {
+    $set: update
+  }, null);
 };
 
 exports.removeDocument = (db, collection, doc, callback) => {
   const coll = db.collection(collection);
 
-  coll.deleteOne(doc, (err, result) => {
-    assert.equal(err, null);
-
-    console.log("Removed the document: ",  doc);
-
-    callback(result);
-  });
+  return coll.deleteOne(doc);
 };
