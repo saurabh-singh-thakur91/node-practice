@@ -1,18 +1,15 @@
 {
-  "name": "npm-demo",
+  "name": "node-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "npm": "^6.14.4",
-    "underscore": "^1.10.2"
-  },
-  "devDependencies": {
-    "jshint": "^2.11.0"
+    "lion-lib-check-publish": "^1.0.0"
   }
 }
