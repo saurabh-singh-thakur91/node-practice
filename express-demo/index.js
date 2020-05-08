@@ -1,8 +1,23 @@
 const Joi = require('@hapi/joi');
 const express = require('express');
 const app = express();
+const logger = require('./logger');
+const helmet = require('helmet');
+const morgan = require('morgan');
+
 
 app.use(express.json()); // middleware, use this in request processing pipeline
+app.use(express.urlencoded({ extended: true })); // parses this req and add the json to req.body
+app.use(express.static('public'));
+app.use(helmet());
+app.use(morgan('tiny'));
+
+app.use(logger);
+
+app.use(function(req, res, next) {
+    console.log('Authentication . . .');
+    next(); // required otherwise the request will be stuck here
+});
 
 let courses = [
     {id: 1, name: 'course-1'},
