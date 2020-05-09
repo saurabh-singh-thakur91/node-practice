@@ -9,8 +9,6 @@ const user = getUser(1);
 
 console.log(user);
 
-console.log('after');
-
 function getUser(id) {
     setTimeout(() => {
         console.log('Reading a user from a database . . .');
@@ -20,3 +18,5 @@ function getUser(id) {
 
     //return 1; // This value will be available to the caller of getUser immediately
 }
+
+console.log('after');
